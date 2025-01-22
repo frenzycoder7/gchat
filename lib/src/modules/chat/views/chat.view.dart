@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gchat/src/common/authentication/model/user.model.dart';
 import 'package:gchat/src/common/extensions/context.extension.dart';
 import 'package:gchat/src/modules/chat/cubit/chat_cubit.dart';
-import 'package:gchat/src/modules/chat/enums/socket_status.enums.dart';
 import 'package:gchat/src/modules/chat/repository/chat_repository.dart';
 import 'package:gchat/src/modules/chat/sub-views/chatbox/views/chatbox.view.dart';
 import 'package:gchat/src/modules/chat/sub-views/conversation_list/view/conversation_list.view.dart';
@@ -38,6 +37,11 @@ class ChatView extends StatelessWidget {
                       ? ChatBoxUserInfoWidget(
                           selected: state.selected!,
                           isTyping: state.isTyping,
+                          onBack: () {
+                            context
+                                .read<ChatCubit>()
+                                .setSelectedConversation(null);
+                          },
                         )
                       : context.homeAppTitle(textA: "Ze", textB: " Chat"),
                   titleSpacing: 2,
@@ -63,19 +67,18 @@ class ChatView extends StatelessWidget {
                     Expanded(
                       child: Stack(
                         children: [
-                          if (state.status.isConnected)
-                            ConversationListView(
-                              onSelected: (p0) => context
+                          // if (state.status.isConnected)
+                          ConversationListView(
+                            onSelected: (p0) => context
+                                .read<ChatCubit>()
+                                .setSelectedConversation(p0),
+                            onCubitCreated: (p0) {
+                              context
                                   .read<ChatCubit>()
-                                  .setSelectedConversation(p0),
-                              onCubitCreated: (p0) {
-                                context
-                                    .read<ChatCubit>()
-                                    .setConversationListCubit(p0);
-                              },
-                            ),
-                          if (state.status.isConnected &&
-                              state.selected != null)
+                                  .setConversationListCubit(p0);
+                            },
+                          ),
+                          if (state.selected != null)
                             ChatBoxView(
                               onMessage: (data) {
                                 context.read<ChatCubit>().sendMessage(data);
@@ -90,10 +93,6 @@ class ChatView extends StatelessWidget {
                         ],
                       ),
                     ),
-                    if (!state.status.isConnected)
-                      Expanded(
-                        child: Text(state.status.name),
-                      )
                   ],
                 ),
               ),

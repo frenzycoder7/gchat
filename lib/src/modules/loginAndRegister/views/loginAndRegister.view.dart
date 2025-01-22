@@ -50,26 +50,6 @@ class _LoginAndRegisterWidget extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    SizedBox(
-                      height: 30,
-                      width: double.infinity,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          IconButton(
-                            onPressed: () {
-                              if (status.isCalling) {
-                                context.showToast(
-                                    'Please wait... we are processing your request');
-                              } else {
-                                Navigator.pop(context);
-                              }
-                            },
-                            icon: const Icon(Icons.arrow_back_ios),
-                          ),
-                        ],
-                      ),
-                    ),
                     Expanded(child: Container()),
                     Text(
                       state.scareenType.isLogin ? "Sign IN" : "Sign UP",

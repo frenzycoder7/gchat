@@ -1,7 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
 
 class ApiEndpoints {
-  static String SOCKET_URL = 'https://socket.getyoursquad.in/';
+  static String SOCKET_URL = 'https://socket.getyoursquad.in';
   static String BASEURL = 'https://api.getyoursquad.in/api/v1/';
   static String CHAT_SERVER = 'https://chats.getyoursquad.in/api/v1/';
 

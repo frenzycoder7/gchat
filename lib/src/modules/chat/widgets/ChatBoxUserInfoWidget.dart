@@ -4,20 +4,29 @@ import 'package:gchat/src/modules/chat/sub-views/conversation_list/model/convers
 
 class ChatBoxUserInfoWidget extends StatelessWidget {
   const ChatBoxUserInfoWidget(
-      {super.key, required this.selected, required this.isTyping});
+      {super.key,
+      required this.selected,
+      required this.isTyping,
+      required this.onBack});
   final Conversation selected;
   final bool isTyping;
+  final Function() onBack;
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
+        IconButton(
+          onPressed: onBack,
+          icon: const Icon(Icons.arrow_back_ios_new),
+        ),
         Container(
           height: 450,
           width: 40,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             image: DecorationImage(
-              image: AssetImage("assets/avatar/${selected.user.userImage}"),
+              image: NetworkImage(
+                  "https://getyoursquad.in/avatar/${selected.user.userImage}"),
             ),
             border: Border.all(
               color: Colors.white,

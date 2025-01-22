@@ -75,8 +75,8 @@ class _ConversationListSubView extends StatelessWidget {
                     children: [
                       CircleAvatar(
                         radius: 30,
-                        backgroundImage: AssetImage(
-                          "assets/avatar/${item.user.userImage}",
+                        backgroundImage: NetworkImage(
+                          "https://getyoursquad.in/avatar/${item.user.userImage}",
                         ),
                       ),
                       const SizedBox(width: 10),

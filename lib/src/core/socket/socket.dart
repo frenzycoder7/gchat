@@ -9,7 +9,6 @@ class SocketService {
   final String _TAG = 'SocketService';
   static final SocketService instance = SocketService._internal();
   SocketService._internal();
-  StorageHelper get _storageHelper => StorageHelper.instance;
 
   IO.Socket socket = IO.io(
     ApiEndpoints.SOCKET_URL,
@@ -17,7 +16,7 @@ class SocketService {
         .setTransports(['websocket'])
         .disableAutoConnect()
         .setExtraHeaders(
-          {'authorization': StorageHelper.instance.token},
+          {'Authorization': StorageHelper.instance.token},
         )
         .build(),
   );
@@ -29,6 +28,8 @@ class SocketService {
       return;
     }
     logPrint('Connecting to socket...');
+
+    print(StorageHelper.instance.token);
     socket.connect();
   }
 
@@ -63,14 +64,6 @@ class SocketService {
   // onConnectionError(Function callback) => socket?.on('connect_error', (data) {
   onConnectionError(Function callback) => socket.onConnectError((data) {
         logPrint('Connection error: $data');
-        callback(data);
-      });
-  onTimeout(Function callback) => socket.onConnectTimeout((data) {
-        logPrint('Connection timeout: $data');
-        callback(data);
-      });
-  onConnecting(Function callback) => socket.onConnecting((data) {
-        logPrint('Connecting to socket');
         callback(data);
       });
 

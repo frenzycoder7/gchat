@@ -38,7 +38,6 @@ class ChatCubit extends Cubit<ChatState> {
       _socket.onError((data) => emit(ChatState.error(data.toString())));
 
       _socket.onReconnecting((data) => emit(ChatState.reconnecting()));
-      _socket.onTimeout((data) => emit(ChatState.error(data.toString())));
       _socket.connect();
     }
     _listenConversationEvent();

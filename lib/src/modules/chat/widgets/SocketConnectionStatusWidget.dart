@@ -20,15 +20,26 @@ class SocketConnectionStatusWidget extends StatelessWidget {
           const Text('STATUS'),
           const SizedBox(width: 10),
           state.status.isConnected
-              ? Container(
-                  height: 10,
-                  width: 10,
-                  decoration: const BoxDecoration(
-                    color: Colors.green,
-                    shape: BoxShape.circle,
-                  ),
+              ? Row(
+                  children: [
+                    Container(
+                      height: 10,
+                      width: 10,
+                      decoration: const BoxDecoration(
+                        color: Colors.green,
+                        shape: BoxShape.circle,
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                    Text(
+                      "Connected",
+                      style: context.theme.textTheme.bodyMedium,
+                    )
+                  ],
                 )
-              : Text(state.message ?? "")
+              : const Text(
+                  "Unable to connect to server",
+                ),
         ],
       ),
     );
